@@ -47,12 +47,12 @@ fun main(){
         var usuario = Usuario(nombre, apellido, edad, correo, sistemaSalud)
         usuarios.add(usuario)
     }
-    for (u in usuarios){
-        println(u)
+    for (u in usuarios.sortedBy {usuario -> usuario.edad}){
+        println("$u")
     }
 }
 fun validarNombre(nombre: String) :Boolean{
-    return nombre.length in 1..20 && nombre.all { it.isLetterOrDigit() }
+    return nombre.length in 1..20 && nombre.all { it.isLetter() }
 }
 
 fun validarApellido(apellido: String) :Boolean{
@@ -61,12 +61,12 @@ fun validarApellido(apellido: String) :Boolean{
 }
 
 fun validarEdad(edad: Int) :Boolean{
-    return true
+    return edad in 0..100
 }
 
 fun validarCorreo(correo: String) :Boolean{
-    val regex = Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
-    return regex.matches(correo)
+
+    return correo.length in 10..100 && correo.contains('@')
 }
 
 fun validarSistemaSalud(sistemaSalud: String) :Boolean{
